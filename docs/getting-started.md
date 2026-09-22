@@ -57,21 +57,26 @@ Trainite creates `my-experiment/` with:
 
 Install the generated project's dependencies and start training:
 
-=== "uv"
+### With uv
 
-    ```bash
-    cd my-experiment
-    uv sync
-    uv run python main.py config.yaml
-    ```
+```bash
+cd my-experiment
+uv sync
+uv run python main.py config.yaml
+```
 
-=== "pip"
+### With pip
 
-    ```bash
-    cd my-experiment
-    pip install -e .
-    python main.py config.yaml
-    ```
+Install the default project's runtime dependencies directly. The generated
+project runs from its source directory; it is not configured as an installable
+Python package. For other component choices, use the dependency list in the
+generated `pyproject.toml`.
+
+```bash
+cd my-experiment
+pip install "pydantic>=2" PyYAML "omegaconf>=2.3.0" torch pytorch-ignite tensorboard clearml
+python main.py config.yaml
+```
 
 The run writes logs, checkpoints, and TensorBoard data beneath
 `outputs/rope_transformer__string_reverse/` in a timestamped directory.

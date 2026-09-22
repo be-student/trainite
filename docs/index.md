@@ -24,4 +24,4 @@ Trainite currently provides these starting points:
 The command-line interface supports an interactive setup as well as explicit
 options for scripts and reproducible project generation.
 
-[Create your first project](getting-started.md){ .md-button .md-button--primary }
+[Create your first project](getting-started.md)
