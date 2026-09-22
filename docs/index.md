@@ -5,9 +5,9 @@ tested building blocks. Choose a model, dataset, and trainer, then use the
 generated project as a readable starting point for your experiment.
 
 The generated project includes its model, data pipeline, trainer, configuration,
-and declared dependencies. It does not need Trainite at runtime. Starter choices
-include basic and rotary-position Transformers, string-reversal, counting, and
-Hugging Face datasets, with decoder training powered by PyTorch-Ignite.
+and declared dependencies. It does not need Trainite at runtime. Run
+`trainite init` to choose components interactively, or `trainite init --help`
+to see the currently available model, dataset, and trainer choices.
 
 ## Getting Started
 
@@ -39,6 +39,9 @@ uv sync
 Prefix the commands below with `uv run` when using the source checkout, for
 example `uv run trainite init`.
 
+To preview changes to this documentation in a browser from the source checkout,
+run `uv run --group docs mkdocs serve` and open the local URL it prints.
+
 ### Create a project
 
 Run the interactive setup and answer each prompt:
@@ -54,6 +57,22 @@ trainite init my-experiment \
   --model rope-transformer \
   --dataset string-reverse \
   --trainer decoder-trainer
+```
+
+The command prints the files it created:
+
+```text
+Generated config.yaml
+Generated models/rope_transformer.py
+Generated dataset_impl/string_reverse.py
+Generated dataset_impl/transformed.py
+Generated trainer.py
+Generated utils.py
+Generated main.py
+Generated config.py
+Generated preprocessors/char_tokenizer.py
+Generated README.md
+Generated pyproject.toml
 ```
 
 Trainite creates `my-experiment/` with:
@@ -78,14 +97,15 @@ uv run python main.py config.yaml
 
 #### With pip
 
-Install the default project's runtime dependencies directly. The generated
-project runs from its source directory; it is not configured as an installable
-Python package. For other component choices, use the dependency list in the
-generated `pyproject.toml`.
+The generated `pyproject.toml` declares its runtime dependencies and supports
+an editable install. It does not package the generated Python modules as a
+reusable library; run `main.py` from the project directory.
 
 ```bash
 cd my-experiment
-pip install "pydantic>=2" PyYAML "omegaconf>=2.3.0" torch pytorch-ignite tensorboard clearml
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .
 python main.py config.yaml
 ```
 
